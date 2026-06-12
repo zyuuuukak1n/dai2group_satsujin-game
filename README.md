@@ -1,92 +1,53 @@
 # 🔪 連続殺人ゲーム 考察＆ガチ投票サイト
 
+[![OGP Image](https://zyuuuukak1n.dev/dai2group/satsujin-game/img_ogp.png)](https://zyuuuukak1n.dev/dai2group/satsujin-game/)
+
+**▶ [公開済みのWebページはこちらからご覧いただけます！](https://zyuuuukak1n.dev/dai2group/satsujin-game/)**
+
 だいにぐるーぷによる大人気企画『殺人ゲーム』の非公式ファンサイト・考察データベースです。
 参加者のアリバイ情報や伏線を整理し、リアルタイムで「誰が殺人鬼か」を予想・投票できる機能を備えています！
 
+---
+
 ## ✨ 特徴 (Features)
 
-- **🕵️‍♂️ 情報整理＆考察:** 各キャラクターの能力、アリバイ状況、未回収の伏線を一覧化
-- **📊 リアルタイムガチ投票:** ユーザー全員の投票結果をリアルタイムで集計・表示
-- **🛡️ セキュアなアーキテクチャ:** Node.js (Express) バックエンドによる厳格なバリデーションとレートリミットを実装。FirebaseのAPIキーなどを隠蔽した堅牢なシステム設計
+- **🕵️‍♂️ 情報整理＆考察:** 各キャラクターの能力、アリバイ状況、未回収の伏線を一覧化。
+- **📊 リアルタイムガチ投票:** ユーザー全員の投票結果をリアルタイムで集計・表示します。
+- **⚡ 超軽量な静的構成:** サーバーサイドを持たない、完全なフロントエンド完結型のシンプルな構成です。
 
 ---
 
 ## 🛠️ 技術スタック (Tech Stack)
 
-**フロントエンド**
-- HTML / Vanilla JavaScript
-- Tailwind CSS (スタイリング)
-- FontAwesome (アイコン)
+当サイトは、ファイル数を最小限に抑えた非常にシンプルな静的ファイル構成（HTML, CSS, Vanilla JavaScript）で構築されています。
 
-**バックエンド**
-- Node.js / Express
-- Zod (入力値バリデーション)
-- Express Rate Limit (DDoS・過剰アクセス対策)
-- Firebase Admin SDK (Firestore トランザクション処理)
-- Jest / Supertest (テスト)
+- **HTML / Vanilla JavaScript**: フレームワークに依存しない軽量で高速な構成。
+- **Tailwind CSS (CDN)**: スタイリングの効率化とカスタマイズ性を両立。
+- **Firebase Firestore**: バックエンドサーバーを構築することなく、ブラウザから直接SDKを利用してリアルタイムな投票集計を実現。
+- **セキュアな設定管理**: FirebaseのAPIキーなどのシークレット情報を外部の `config.js` に切り出し、Git管理から除外することで安全性を確保しています。
 
 ---
 
 ## 🚀 ローカル環境での動かし方 (Getting Started)
 
-Firebaseの設定なしでも、すぐに動かして試せる「モックDBモード」を搭載しています！
+当プロジェクトは静的ファイルのみで構成されているため、ビルドやサーバー構築は不要です。
 
 ### 1. リポジトリのクローン
-\`\`\`bash
-git clone https://github.com/your-username/satsujin-game-vote.git
-cd satsujin-game-vote
-\`\`\`
+```bash
+git clone <your-repository-url>
+cd dai2group_satsujin-game
+```
 
-### 2. 依存関係のインストール
-\`\`\`bash
-npm install
-\`\`\`
+### 2. 環境設定ファイルの作成
+ルートディレクトリにある `config.example.js` をコピーして `config.js` を作成し、ご自身のFirebaseプロジェクトの設定値を入力してください。
 
-### 3. 環境変数の設定
-ルートディレクトリに \`.env\` ファイルを作成し、以下の内容をコピーしてください。
+```bash
+cp config.example.js config.js
+```
 
-\`\`\`env
-PORT=3000
-NODE_ENV=development
-# MOCK_DBをtrueにするとFirebaseなしで動作します！
-MOCK_DB=true
-CORS_ORIGIN="*"
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
-\`\`\`
-
-### 4. サーバーの起動
-\`\`\`bash
-npm start
-\`\`\`
-ブラウザで \`http://localhost:3000\` にアクセスするとサイトが表示されます。
-
----
-
-## 🔥 Firebase連携（本番運用）
-
-実際にFirestoreと連携させて本番運用を行う場合は、以下の手順を実施してください。
-
-1. Firebaseコンソールから「プロジェクトの設定」＞「サービスアカウント」を開く
-2. 「新しい秘密鍵の生成」からJSONファイルをダウンロード
-3. \`.env\` ファイルを以下のように設定（\`MOCK_DB\` は削除または \`false\` にします）
-
-\`\`\`env
-FIREBASE_PROJECT_ID="your_project_id"
-FIREBASE_CLIENT_EMAIL="firebase-adminsdk-xxx@your-project-id.iam.gserviceaccount.com"
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nあなたのプライベートキー\n-----END PRIVATE KEY-----\n"
-\`\`\`
-※ \`FIREBASE_PRIVATE_KEY\` の改行は \`\n\` にエスケープした状態で1行にして記載してください。
-
----
-
-## 🧪 テストの実行
-
-Jest と Supertest を使用したテストコードを同梱しています。バリデーションやセキュリティ周りの挙動を確認できます。
-
-\`\`\`bash
-npm test
-\`\`\`
+### 3. ブラウザで開く
+`index.html` をお好みのブラウザで直接開くか、VSCode等の拡張機能「Live Server」を利用して表示してください。
+これだけで完全に動作します！
 
 ---
 
