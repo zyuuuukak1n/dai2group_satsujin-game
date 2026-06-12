@@ -1,7 +1,5 @@
 # 🔪 連続殺人ゲーム 考察＆ガチ投票サイト
 
-[![OGP Image](https://zyuuuukak1n.dev/dai2group/satsujin-game/img_ogp.png)](https://zyuuuukak1n.dev/dai2group/satsujin-game/)
-
 **▶ [公開済みのWebページはこちらからご覧いただけます！](https://zyuuuukak1n.dev/dai2group/satsujin-game/)**
 
 だいにぐるーぷによる大人気企画『殺人ゲーム』の非公式ファンサイト・考察データベースです。
