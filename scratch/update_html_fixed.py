@@ -1,184 +1,34 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- [サイトタイトル変更箇所] ブラウザのタブに表示されるタイトルです -->
-    <title>【非公式】山幸閣 連続殺人ゲーム 考察サイト</title>
+import re
+import os
 
-    <!-- OGP設定項目 -->
-    <meta property="og:url" content="https://zyuuuukak1n.dev/dai2group/satsujin-game/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="随時更新中！｜『殺人ゲーム』非公式考察サイト">
-    <meta property="og:description" content="だいにぐるーぷの最新企画『殺人ゲーム』のファンメイドの非公式考察サイト。登場人物や時系列図など、考察が捗る情報を掲載しています。">
-    <meta property="og:site_name" content="『殺人ゲーム』非公式考察サイト">
-    <meta property="og:image" content="https://zyuuuukak1n.dev/dai2group/satsujin-game/img_ogp.png">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="随時更新中！｜『殺人ゲーム』非公式考察サイト">
-    <meta name="twitter:description" content="だいにぐるーぷの最新企画『殺人ゲーム』のファンメイドの非公式考察サイト。登場人物や時系列図など、考察が捗る情報を掲載しています。">
-    <meta name="twitter:image" content="https://zyuuuukak1n.dev/dai2group/satsujin-game/img_ogp.png">
-    <meta name="twitter:site" content="@zyuuuukak1n_D2">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['"Noto Serif JP"', 'serif'],
-                    },
-                    colors: {
-                        dark: '#0a0a0a',
-                        darker: '#050505',
-                        blood: '#8b0000',
-                        ice: '#a0c4ff'
-                    }
-                }
-            }
-        }
-    </script>
+with open("index.html", "r", encoding="utf-8") as f:
+    html = f.read()
 
-    <style>
-        body {
-            font-family: 'Noto Serif JP', serif;
-            background-color: #0a0a0a;
-            color: #f3f4f6;
-            scroll-behavior: smooth; 
-        }
-        
-        .bg-noise {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-        }
-        
-        .hero-bg {
-            background: linear-gradient(to bottom, rgba(10,10,10,0.3), rgba(10,10,10,1)), 
-                        url('https://images.unsplash.com/photo-1548685913-fe6678babe8d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-        }
-        
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background-color: #8b0000;
-        }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
-    </style>
+idx_news = html.find("<!-- NEWS -->")
+idx_vote = html.find("<!-- ガチ投票 セクション (Firebase) -->")
+idx_ref = html.find("<!-- REFERENCES -->")
+idx_footer = html.find("<!-- Footer -->")
 
+if -1 in [idx_news, idx_vote, idx_ref, idx_footer]:
+    print("Could not find sections")
+    exit(1)
+
+head_part = html[:idx_news]
+vote_part = html[idx_vote:idx_ref]
+footer_part = html[idx_footer:]
+
+react_scripts = """
     <!-- React & Babel -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+"""
 
-</head>
-<body class="bg-noise antialiased">
+head_part = head_part.replace("</head>", react_scripts + "\n</head>")
 
-    <!-- ナビゲーション -->
-    <nav class="fixed w-full z-50 bg-darker/90 backdrop-blur-sm border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-xl font-bold tracking-widest text-white">
-                        <i class="fa-solid fa-mountain-city text-blood mr-2"></i>山幸閣<span class="text-xs ml-2 text-gray-400">連続殺人ゲーム 考察DB</span>
-                    </a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-6 text-sm tracking-widest">
-                        <a href="#news" class="hover:text-blood transition-colors duration-300">NEWS</a>
-                        <a href="#intro" class="hover:text-blood transition-colors duration-300">INTRODUCTION</a>
-                        <a href="#story" class="hover:text-blood transition-colors duration-300">STORY</a>
-                        <a href="#cast" class="hover:text-blood transition-colors duration-300">CAST</a>
-                        <a href="#incidents" class="hover:text-blood transition-colors duration-300">INCIDENTS</a>
-                        <a href="#clues" class="hover:text-blood transition-colors duration-300">CLUES</a>
-                        <a href="#vote" class="text-blood font-bold hover:text-white transition-colors duration-300">ガチ投票</a>
-                    </div>
-                </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="hidden md:hidden bg-darker" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-                <a href="#news" class="block px-3 py-2 text-base font-medium hover:text-blood">NEWS</a>
-                <a href="#intro" class="block px-3 py-2 text-base font-medium hover:text-blood">INTRODUCTION</a>
-                <a href="#story" class="block px-3 py-2 text-base font-medium hover:text-blood">STORY</a>
-                <a href="#cast" class="block px-3 py-2 text-base font-medium hover:text-blood">CAST</a>
-                <a href="#incidents" class="block px-3 py-2 text-base font-medium hover:text-blood">INCIDENTS</a>
-                <a href="#clues" class="block px-3 py-2 text-base font-medium hover:text-blood">CLUES</a>
-                <a href="#vote" class="block px-3 py-2 text-base font-medium text-blood">VOTE</a>
-            </div>
-        </div>
-    </nav>
+react_root_main = """    <div id="react-root-main"></div>\n\n"""
 
-    <!-- メインビジュアル -->
-    <header class="hero-bg h-screen flex items-center justify-center relative">
-        <div class="text-center px-4 z-10">
-            <p class="text-ice tracking-[0.3em] mb-4 text-sm md:text-base text-shadow">60台のカメラが捉えた、2泊3日の狂気。</p>
-            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-widest text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
-                猛吹雪に閉ざされた<br class="md:hidden"><span class="text-blood">連続殺人ゲーム</span>
-            </h1>
-            <p class="text-lg md:text-xl font-light tracking-wider max-w-2xl mx-auto text-gray-300 mb-10">
-                逃げ場なし。生存者の中に、殺人鬼が潜んでいる。<br>
-                あなたは、真実に辿り着けるか。
-            </p>
-            <a href="#intro" class="inline-block border border-gray-500 hover:border-blood hover:bg-blood/20 text-white px-8 py-3 rounded tracking-widest transition duration-300">
-                事件の概要・検証を見る <i class="fa-solid fa-angle-down ml-2"></i>
-            </a>
-        </div>
-        <div class="absolute top-24 right-8 flex items-center text-red-500 animate-pulse">
-            <div class="w-3 h-3 rounded-full bg-red-600 mr-2"></div>
-            <span class="font-sans font-bold tracking-widest text-sm">REC</span>
-        </div>
-    </header>
-
-        <div id="react-root-main"></div>
-
-<!-- ガチ投票 セクション (Firebase) -->
-    <section id="vote" class="py-20 bg-darker border-t border-gray-900">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-black tracking-[0.2em] text-white mb-2 relative inline-block">
-                    VOTING
-                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#8b0000]"></div>
-                </h2>
-                <p class="text-gray-500 tracking-widest mt-5 text-sm">真犯人（殺人鬼）予測 リアルタイムガチ投票</p>
-                <p class="text-[11px] text-gray-600 mt-2">※殺人鬼は複数人いる可能性があります。<br>怪しいと思う人物を選択（複数可）し、「投票を確定する」ボタンを押してください。<br>（全ユーザーの投票データがリアルタイムに集計・反映されます）</p>
-            </div>
-            
-            <div class="bg-dark border border-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <p class="text-center text-sm text-gray-400 mb-8">
-                    全ユーザーの総投票数: <span id="vote-total" class="text-white font-bold text-lg">0</span> 票
-                </p>
-                
-                <div id="candidate-list" class="space-y-4">
-                    <div class="text-center text-gray-500 text-sm py-10"><i class="fa-solid fa-spinner fa-spin mr-2"></i> 投票データを読み込み中...</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-        <div id="react-root-refs"></div>
+react_root_refs_and_script = """    <div id="react-root-refs"></div>
 
     <script type="text/babel">
         const DATA = {
@@ -446,11 +296,10 @@
                             <h3 className="text-lg font-bold text-left border-l-4 border-yellow-600 pl-3 mb-6 text-gray-300"><i className="fa-solid fa-suitcase mr-2"></i>宿泊客</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
                                 {DATA.characters.guests.map((c, i) => (
-                                    <div key={i} className={`${c.isVictim ? 'bg-red-950/20 border-blood/50' : 'bg-dark border-gray-800'} border p-4 rounded relative`}>
-                                        {c.isVictim && <div className="absolute -top-2 -right-2 bg-blood text-white text-[10px] font-bold px-2 py-1 rounded rotate-12">被害者</div>}
-                                        <h4 className={`font-bold ${c.isVictim ? 'text-red-300' : 'text-white'} mb-1`}>{c.name} ［{c.room}］</h4>
+                                    <div key={i} className="bg-dark border border-gray-800 p-4 rounded">
+                                        <h4 className="font-bold text-white mb-1">{c.name} ［{c.room}］</h4>
                                         <p className="text-xs text-yellow-500 mb-2">{c.type}</p>
-                                        <p className={`text-sm ${c.isVictim ? 'text-gray-400' : 'text-gray-500'}`}>{c.desc}</p>
+                                        <p className="text-sm text-gray-500">{c.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -546,327 +395,13 @@
         const rootRefs = ReactDOM.createRoot(document.getElementById('react-root-refs'));
         rootRefs.render(<AppRefs />);
     </script>
-<!-- Footer -->
-    <footer class="bg-darker py-8 border-t border-gray-900 text-center">
-        <div class="max-w-7xl mx-auto px-4">
-            <p class="text-gray-600 text-sm tracking-widest mb-2">※本サイトは非公式のファンメイド考察サイトです。</p>
-            <p class="text-gray-700 text-xs">© 2026 山幸閣 連続殺人ゲーム 考察班</p>
-        </div>
-    </footer>
+"""
 
-    <!-- Firebase SDK & 投票ロジック -->
-    <script src="config.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        import { getFirestore, doc, collection, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(head_part)
+    f.write(react_root_main)
+    f.write(vote_part)
+    f.write(react_root_refs_and_script)
+    f.write(footer_part)
 
-        // Firebase設定 (外部ファイル config.js から読み込み)
-        const firebaseConfig = window.FIREBASE_CONFIG || {
-            apiKey: "",
-            authDomain: "",
-            projectId: "",
-            storageBucket: "",
-            messagingSenderId: "",
-            appId: "",
-            measurementId: ""
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const appId = 'web-voting'
-        
-        let db, auth;
-        let user = null;
-        let isLocalMode = false;
-
-        try {
-            const finalConfig = (typeof configStr !== 'undefined' && configStr) ? JSON.parse(configStr) : firebaseConfig;
-            const app = initializeApp(finalConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-        } catch (error) {
-            console.error("Firebase初期化エラー:", error);
-            isLocalMode = true;
-        }
-
-        // 登場人物全員（17名）の定義
-        const candidates = [
-            { id: 'rintaro', name: '黒崎 林太郎 (支配人)' },
-            { id: 'koichi', name: '黒崎 恒一 (オーナー)' },
-            { id: 'yumiko', name: '黒崎 由美子 (長女)' },
-            { id: 'rin', name: '黒崎 凛 (三女)' },
-            { id: 'tanaka', name: '田中 芳子 (清掃員)' },
-            { id: 'iwata', name: '岩田 (だいにぐるーぷ)' },
-            { id: 'iino', name: '飯野 (だいにぐるーぷ)' },
-            { id: 'nishio', name: '西尾 (だいにぐるーぷ)' },
-            { id: 'doitaya', name: '土井谷 (だいにぐるーぷ)' },
-            { id: 'sudo', name: '須藤 (だいにぐるーぷ)' },
-            { id: 'sasaki', name: '佐々木 清 (常連客)' },
-            { id: 'aizawa', name: '相沢 健二 (ライター)' },
-            { id: 'takahashi', name: '高橋 宏 (不倫相手)' },
-            { id: 'nakamura', name: '中村 美咲 (不倫相手)' },
-            { id: 'yuto', name: '悠斗 (スノーボーダー)' },
-            { id: 'rio', name: 'リオ (インフルエンサー)' },
-            { id: 'shirai', name: '白井 玲司 (謎の男)' }
-        ];
-
-        // サーバーからの得票数
-        let voteCounts = {};
-        candidates.forEach(c => voteCounts[c.id] = 0);
-
-        // クライアント側（ブラウザ）の選択・確定状態管理
-        let myVotedCandidates = JSON.parse(localStorage.getItem('satsujin_game_votes') || '[]');
-        let selectedCandidates = new Set();
-
-        // Firebase 認証プロセス
-        const initAuth = async () => {
-            if (isLocalMode) {
-                user = { uid: "local-user" };
-                window.renderVotes();
-                return;
-            }
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (e) {
-                console.error("Auth Error:", e);
-                isLocalMode = true;
-                window.renderVotes();
-            }
-        };
-
-        if (!isLocalMode) {
-            onAuthStateChanged(auth, (u) => {
-                user = u;
-                if (user) {
-                    const votesRef = collection(db, 'artifacts', appId, 'public', 'data', 'votes');
-                    onSnapshot(votesRef, (snapshot) => {
-                        snapshot.forEach(docSnap => {
-                            voteCounts[docSnap.id] = docSnap.data().count || 0;
-                        });
-                        window.renderVotes();
-                    }, (error) => {
-                        console.error("Firestore error:", error);
-                    });
-                }
-            });
-        }
-
-        initAuth();
-
-        // 候補者チェックボックストグル（確定前）
-        window.toggleSelection = function(candidateId) {
-            if (myVotedCandidates.length > 0) return; // 既に確定済みなら変更不可
-            
-            if (selectedCandidates.has(candidateId)) {
-                selectedCandidates.delete(candidateId);
-            } else {
-                selectedCandidates.add(candidateId);
-            }
-            window.renderVotes();
-        }
-
-        // 投票確定処理（複数選択を一括送信）
-        window.confirmVote = async function() {
-            if (selectedCandidates.size === 0) {
-                alert("1人以上選択してください。");
-                return;
-            }
-
-            const selectedArr = Array.from(selectedCandidates);
-
-            // 1. UIの即時反映（楽観的アップデート）
-            selectedArr.forEach(id => {
-                if(voteCounts[id] !== undefined) voteCounts[id]++;
-            });
-            myVotedCandidates = selectedArr;
-            localStorage.setItem('satsujin_game_votes', JSON.stringify(myVotedCandidates));
-            window.renderVotes();
-
-            // 投票後は自分の予想欄(上部)を見せるためスクロール
-            document.getElementById('vote').scrollIntoView({ behavior: 'smooth' });
-
-            if (isLocalMode || !user) return;
-
-            // 2. Firestore トランザクション処理でカウントを加算
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const reads = [];
-                    for (const id of selectedArr) {
-                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'votes', id);
-                        reads.push({ ref: docRef, snap: await transaction.get(docRef) });
-                    }
-                    for (const { ref, snap } of reads) {
-                        if (!snap.exists()) {
-                            transaction.set(ref, { count: 1 });
-                        } else {
-                            transaction.update(ref, { count: (snap.data().count || 0) + 1 });
-                        }
-                    }
-                });
-            } catch (e) {
-                console.error("Vote confirm failed: ", e);
-            }
-        }
-
-        // 投票やり直し処理（過去の自分の票をサーバーからマイナスする）
-        window.resetVote = async function() {
-            if (!confirm("現在の投票を取り消してやり直しますか？")) return;
-
-            const previousVotes = [...myVotedCandidates];
-
-            // 1. UIの即時反映（ローカルから票を減らす）
-            previousVotes.forEach(id => {
-                if (voteCounts[id] > 0) voteCounts[id]--;
-            });
-            myVotedCandidates = [];
-            selectedCandidates.clear();
-            localStorage.removeItem('satsujin_game_votes');
-            window.renderVotes();
-
-            if (isLocalMode || !user) return;
-
-            // 2. Firestore トランザクション処理でカウントを減算
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const reads = [];
-                    for (const id of previousVotes) {
-                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'votes', id);
-                        reads.push({ ref: docRef, snap: await transaction.get(docRef) });
-                    }
-                    for (const { ref, snap } of reads) {
-                        if (snap.exists()) {
-                            // マイナスにならないよう制御
-                            const newCount = Math.max(0, (snap.data().count || 0) - 1);
-                            transaction.update(ref, { count: newCount });
-                        }
-                    }
-                });
-            } catch (e) {
-                console.error("Vote reset failed: ", e);
-            }
-        }
-
-        // 画面レンダリング関数
-        window.renderVotes = function() {
-            const container = document.getElementById('candidate-list');
-            if(!container) return;
-            
-            let total = 0;
-            for (const key in voteCounts) total += voteCounts[key];
-            
-            // 得票数順にソート
-            const sorted = candidates.map(c => ({...c, count: voteCounts[c.id]})).sort((a,b) => b.count - a.count);
-            document.getElementById('vote-total').innerText = total.toLocaleString();
-            
-            const hasVoted = myVotedCandidates.length > 0;
-            let html = '';
-
-            // =====================================
-            // 投票確定後の「自分の予想」とアクションエリア（上部）
-            // =====================================
-            if (hasVoted) {
-                const votedNames = myVotedCandidates.map(id => candidates.find(c => c.id === id)?.name).join('、');
-                const encodedText = encodeURIComponent(`私は【${votedNames}】が殺人鬼だと推理して投票しました！\n\nhttps://zyuuuukak1n.dev/dai2group/satsujin-game/#vote\n\n#殺人ゲーム #だいにぐるーぷ`);
-                
-                html += `
-                <div class="bg-gray-900/80 border border-blue-500/50 p-6 rounded-lg mb-10 text-center shadow-[0_0_20px_rgba(59,130,246,0.15)]">
-                    <h3 class="text-sm font-bold text-gray-400 mb-2">現在の自分の予想</h3>
-                    <p class="text-lg md:text-xl font-bold text-blue-300 mb-6 leading-relaxed">${votedNames}</p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="https://twitter.com/intent/tweet?text=${encodedText}" target="_blank" rel="noopener noreferrer" class="bg-black hover:bg-gray-800 border border-gray-600 text-white text-sm font-bold px-6 py-3 rounded-full transition flex items-center justify-center">
-                            <i class="fa-brands fa-x-twitter text-lg mr-2"></i> Xで予想をポスト
-                        </a>
-                        <button onclick="resetVote()" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white text-sm font-bold px-6 py-3 rounded-full transition flex items-center justify-center">
-                            <i class="fa-solid fa-rotate-right mr-2"></i> 投票をやり直す
-                        </button>
-                    </div>
-                </div>
-                `;
-            }
-
-            // =====================================
-            // 候補者一覧とプログレスバー
-            // =====================================
-            html += '<div class="space-y-4">';
-            sorted.forEach((c, index) => {
-                const pct = total === 0 ? 0 : ((c.count / total) * 100).toFixed(1);
-                const isTop = index === 0 && c.count > 0;
-                const isSelected = selectedCandidates.has(c.id);
-                const isMyVote = myVotedCandidates.includes(c.id);
-
-                // 状態に応じたスタイル分け
-                let borderClass = 'border-gray-800';
-                let cursorClass = 'cursor-pointer hover:border-gray-600';
-                let checkIcon = '<i class="fa-regular fa-square text-gray-600 text-xl"></i>';
-
-                if (hasVoted) {
-                    cursorClass = 'cursor-default opacity-60';
-                    if (isMyVote) {
-                        borderClass = 'border-blue-500/80 bg-blue-900/20 opacity-100 shadow-[0_0_10px_rgba(59,130,246,0.3)]';
-                        checkIcon = '<i class="fa-solid fa-square-check text-blue-400 text-xl"></i>';
-                    } else {
-                        checkIcon = '<i class="fa-regular fa-square text-gray-700 text-xl opacity-50"></i>';
-                    }
-                } else {
-                    if (isSelected) {
-                        borderClass = 'border-red-600/80 bg-red-900/20 shadow-[0_0_10px_rgba(220,38,38,0.3)]';
-                        checkIcon = '<i class="fa-solid fa-square-check text-red-500 text-xl"></i>';
-                    }
-                }
-                
-                html += `
-                <div onclick="${hasVoted ? '' : `toggleSelection('${c.id}')`}" class="relative p-3 rounded-lg border ${borderClass} ${cursorClass} transition-all duration-200 group">
-                    <div class="flex justify-between items-center mb-2 relative z-10">
-                        <div class="flex items-center gap-3">
-                            <span class="transform group-hover:scale-110 transition-transform">${checkIcon}</span>
-                            <span class="font-bold ${isTop ? 'text-red-500' : 'text-gray-200'} text-sm md:text-base">${index + 1}. ${c.name}</span>
-                        </div>
-                        <span class="text-gray-400 font-mono text-xs md:text-sm bg-black/50 px-2 py-1 rounded border border-gray-800">${pct}% (${c.count.toLocaleString()}票)</span>
-                    </div>
-                    <div class="w-full bg-gray-900 h-2 md:h-3 rounded overflow-hidden relative z-0">
-                        <div class="${isTop ? 'bg-red-700' : 'bg-gray-600'} h-full transition-all duration-1000 ease-out" style="width: ${pct}%"></div>
-                    </div>
-                </div>
-                `;
-            });
-            html += '</div>';
-
-            // =====================================
-            // フッターアクションエリア（確定ボタン等）
-            // =====================================
-            html += '<div class="mt-10 text-center border-t border-gray-800 pt-8">';
-            if (!hasVoted) {
-                html += `
-                <button onclick="confirmVote()" class="bg-blood hover:bg-red-700 text-white font-bold text-lg px-12 py-4 rounded-full shadow-[0_0_20px_rgba(139,0,0,0.4)] transition-all transform hover:scale-105 flex items-center justify-center mx-auto">
-                    <i class="fa-solid fa-check mr-2"></i> 投票を確定する
-                </button>
-                <p class="text-xs text-gray-500 mt-4">※気になる人物をタップして選択してください（複数選択可）</p>
-                `;
-            } else {
-                const votedNames = myVotedCandidates.map(id => candidates.find(c => c.id === id)?.name).join('、');
-                const encodedText = encodeURIComponent(`私は【${votedNames}】が殺人鬼だと推理して投票しました！\n\nhttps://zyuuuukak1n.dev/dai2group/satsujin-game/#vote\n\n#殺人ゲーム #だいにぐるーぷ`);
-                
-                html += `
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="https://twitter.com/intent/tweet?text=${encodedText}" target="_blank" rel="noopener noreferrer" class="bg-black hover:bg-gray-800 border border-gray-600 text-white font-bold px-8 py-4 rounded-full transition flex items-center justify-center">
-                        <i class="fa-brands fa-x-twitter text-lg mr-2"></i> Xで予想をポスト
-                    </a>
-                    <button onclick="resetVote()" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold px-8 py-4 rounded-full transition flex items-center justify-center">
-                        <i class="fa-solid fa-rotate-right mr-2"></i> 投票をやり直す
-                    </button>
-                </div>
-                `;
-            }
-            html += '</div>';
-
-            container.innerHTML = html;
-        }
-    </script>
-</body>
-</html>
+print("Update completed successfully.")
