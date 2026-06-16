@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- [サイトタイトル変更箇所] ブラウザのタブに表示されるタイトルです -->
+    <title>【非公式】山幸閣 連続殺人ゲーム 考察サイト</title>
+
+    <!-- OGP設定項目 -->
+    <meta property="og:url" content="https://zyuuuukak1n.dev/dai2group/satsujin-game/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="随時更新中！｜『殺人ゲーム』非公式考察サイト">
+    <meta property="og:description" content="だいにぐるーぷの最新企画『殺人ゲーム』のファンメイドの非公式考察サイト。登場人物や時系列図など、考察が捗る情報を掲載しています。">
+    <meta property="og:site_name" content="『殺人ゲーム』非公式考察サイト">
+    <meta property="og:image" content="https://zyuuuukak1n.dev/dai2group/satsujin-game/img_ogp.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="随時更新中！｜『殺人ゲーム』非公式考察サイト">
+    <meta name="twitter:description" content="だいにぐるーぷの最新企画『殺人ゲーム』のファンメイドの非公式考察サイト。登場人物や時系列図など、考察が捗る情報を掲載しています。">
+    <meta name="twitter:image" content="https://zyuuuukak1n.dev/dai2group/satsujin-game/img_ogp.png">
+    <meta name="twitter:site" content="@zyuuuukak1n_D2">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Noto Serif JP"', 'serif'],
+                    },
+                    colors: {
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        blood: '#8b0000',
+                        ice: '#a0c4ff'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Serif JP', serif;
+            background-color: #0a0a0a;
+            color: #f3f4f6;
+            scroll-behavior: smooth; 
+        }
+        
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(10,10,10,0.3), rgba(10,10,10,1)), 
+                        url('https://images.unsplash.com/photo-1548685913-fe6678babe8d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: #8b0000;
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-noise antialiased">
+
+    <!-- ナビゲーション -->
+    <nav class="fixed w-full z-50 bg-darker/90 backdrop-blur-sm border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-xl font-bold tracking-widest text-white">
+                        <i class="fa-solid fa-mountain-city text-blood mr-2"></i>山幸閣<span class="text-xs ml-2 text-gray-400">連続殺人ゲーム 考察DB</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6 text-sm tracking-widest">
+                        <a href="#news" class="hover:text-blood transition-colors duration-300">NEWS</a>
+                        <a href="#intro" class="hover:text-blood transition-colors duration-300">INTRODUCTION</a>
+                        <a href="#story" class="hover:text-blood transition-colors duration-300">STORY</a>
+                        <a href="#cast" class="hover:text-blood transition-colors duration-300">CAST</a>
+                        <a href="#incidents" class="hover:text-blood transition-colors duration-300">INCIDENTS</a>
+                        <a href="#clues" class="hover:text-blood transition-colors duration-300">CLUES</a>
+                        <a href="#vote" class="text-blood font-bold hover:text-white transition-colors duration-300">ガチ投票</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:hidden bg-darker" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#news" class="block px-3 py-2 text-base font-medium hover:text-blood">NEWS</a>
+                <a href="#intro" class="block px-3 py-2 text-base font-medium hover:text-blood">INTRODUCTION</a>
+                <a href="#story" class="block px-3 py-2 text-base font-medium hover:text-blood">STORY</a>
+                <a href="#cast" class="block px-3 py-2 text-base font-medium hover:text-blood">CAST</a>
+                <a href="#incidents" class="block px-3 py-2 text-base font-medium hover:text-blood">INCIDENTS</a>
+                <a href="#clues" class="block px-3 py-2 text-base font-medium hover:text-blood">CLUES</a>
+                <a href="#vote" class="block px-3 py-2 text-base font-medium text-blood">VOTE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- メインビジュアル -->
+    <header class="hero-bg h-screen flex items-center justify-center relative">
+        <div class="text-center px-4 z-10">
+            <p class="text-ice tracking-[0.3em] mb-4 text-sm md:text-base text-shadow">60台のカメラが捉えた、2泊3日の狂気。</p>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-widest text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
+                猛吹雪に閉ざされた<br class="md:hidden"><span class="text-blood">連続殺人ゲーム</span>
+            </h1>
+            <p class="text-lg md:text-xl font-light tracking-wider max-w-2xl mx-auto text-gray-300 mb-10">
+                逃げ場なし。生存者の中に、殺人鬼が潜んでいる。<br>
+                あなたは、真実に辿り着けるか。
+            </p>
+            <a href="#intro" class="inline-block border border-gray-500 hover:border-blood hover:bg-blood/20 text-white px-8 py-3 rounded tracking-widest transition duration-300">
+                事件の概要・検証を見る <i class="fa-solid fa-angle-down ml-2"></i>
+            </a>
+        </div>
+        <div class="absolute top-24 right-8 flex items-center text-red-500 animate-pulse">
+            <div class="w-3 h-3 rounded-full bg-red-600 mr-2"></div>
+            <span class="font-sans font-bold tracking-widest text-sm">REC</span>
+        </div>
+    </header>
+
+    <!-- NEWS -->
+    <section id="news" class="py-12 bg-dark border-b border-gray-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-start md:items-center">
+                <h2 class="text-blood font-bold text-xl tracking-widest mr-8 mb-4 md:mb-0 shrink-0">NEWS</h2>
+                <ul class="space-y-3 w-full">
+                    <li class="flex flex-col sm:flex-row sm:items-center border-b border-gray-800 pb-2">
+                        <span class="text-gray-500 text-sm w-32 shrink-0">2026.06.06</span>
+                        <span class="text-red-400 font-bold mr-3 shrink-0"><i class="fa-solid fa-triangle-exclamation"></i> 第2話公開</span>
+                        <a href="#story" class="hover:text-blood transition-colors line-clamp-1">第2の事件発生。スナック前で黒崎凛が殺害。数々の秘密が露呈。</a>
+                    </li>
+                    <li class="flex flex-col sm:flex-row sm:items-center border-b border-gray-800 pb-2">
+                        <span class="text-gray-500 text-sm w-32 shrink-0">2026.05.30</span>
+                        <span class="text-gray-400 font-bold mr-3 shrink-0"><i class="fa-solid fa-video"></i> 第1話公開</span>
+                        <a href="#incidents" class="hover:text-blood transition-colors line-clamp-1">第1の事件（清掃員・田中芳子殺害）のアリバイデータを格納。</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section id="intro" class="py-20 bg-darker">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold section-title tracking-widest">INTRODUCTION</h2>
+            <p class="text-gray-400 mb-12 text-sm tracking-widest">作品概要・ルール・ホテルの構造</p>
+            
+            <div class="bg-gray-900/50 border border-gray-800 p-8 rounded-lg text-left leading-relaxed space-y-6 mb-8">
+                <p class="text-gray-300">
+                    だいにぐるーぷのメンバーたちが長野県の雪山にあるホテルへ宿泊。しかし滞在中に殺人事件が発生します。吹雪によって警察が到着するのは2日後の朝。それまでに参加者たちはホテル内に潜む殺人鬼を見つけなければなりません。<br>
+                    さらに、だいにぐるーぷのメンバーにはそれぞれ役職が与えられており、自分の役職を最も悟られなかった人物には賞金が与えられるというルール。視聴者は事件の真相と各メンバーの役職を推理しながら楽しむことができます。
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <!-- 館内構造 -->
+                    <div class="bg-dark p-6 border-l-4 border-ice rounded-r">
+                        <h3 class="text-xl font-bold mb-4 flex items-center text-ice"><i class="fa-solid fa-building mr-2"></i> ホテルの構造データ</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2 text-sm">
+                            <li>本館1～3Fにエレベーター（使用禁止の貼り紙）、別館3～6Fにエレベーター稼働。</li>
+                            <li>両館は3Fの渡り廊下で繋がっている。渡り廊下の途中に喫煙所。</li>
+                            <li>別館はどの階も同じ構造。各階の奥には「非常時以外開放厳禁」の扉があり外へ出られる。</li>
+                            <li>6Fの客室はオーナー家族と従業員用。EV脇に白いポットと黒い電子レンジ。</li>
+                            <li>5FのEV脇に黒い電子レンジ。4FのEV脇に白い電子レンジとポット、廊下にソファー。</li>
+                            <li>3Fに大食堂と小食堂（別館EV前）。食事は小食堂で取る。</li>
+                            <li>2Fに男女大浴場とボイラー室。</li>
+                            <li>1Fにクラブアルカディア（19:00～21:00営業）。</li>
+                            <li>本館に非常用の裏階段あり（1〜3階の廊下端に接続）。</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 不審点 -->
+                    <div class="bg-dark p-6 border-l-4 border-blood rounded-r">
+                        <h3 class="text-xl font-bold mb-4 flex items-center text-red-400"><i class="fa-solid fa-mask mr-2"></i> ホテルの不審な点・秘密</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2 text-sm">
+                            <li>女性側大浴場の電気が消えていた時間帯があった。</li>
+                            <li>別館エレベーター6F横の時計は一切動いていない。</li>
+                            <li>603号室の謎：夜ドアが少し開いて電気が点き、水と紙と何かが置いてある。</li>
+                            <li>第2回緊急会議後、食堂前で岩田と由美子がすれ違う（由美子はカレー所持）。岩田はその後空の皿を持っていた謎。</li>
+                            <li>支配人・林太郎はパリッとした恰好だが、娘姉妹はエプロン。由美子は掃除機の場所すら知らない。</li>
+                            <li>凛は「三女」。姉がもう一人いるはずだが、黒崎家の誰もそれに触れない。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-gray-600 text-right">【引用元：んごミック 様 / ヨン_kikyosan 様】</p>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="story" class="py-20 bg-dark">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold section-title tracking-widest">STORY</h2>
+            <p class="text-gray-400 mb-12 text-sm tracking-widest">これまでの展開（100%正確な事実記録）</p>
+
+            <div class="space-y-8 text-left relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-700 before:to-transparent">
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-gray-800 text-gray-400 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow">0</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-lg bg-gray-900/80 border border-gray-800 hover:border-gray-600 transition duration-300">
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="font-bold text-lg text-white">プロローグ: ゲームの幕開け</h3>
+                            <span class="text-xs text-gray-500 font-mono">DAY 1 - 14:00</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            雪山の奥深くに佇むホテル「山幸閣」に集められた参加者たち。突如告げられた連続殺人ゲーム。吹雪で完全孤立する中、メンバーは金庫から自身の役職を確認し、探索を開始する。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-blood text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow z-10"><i class="fa-solid fa-skull"></i></div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-lg bg-red-950/10 border border-blood/30 hover:border-blood/60 transition duration-300">
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="font-bold text-lg text-red-200">第1の事件: 清掃員・田中芳子殺害</h3>
+                            <span class="text-xs text-red-400 font-mono">DAY 1 - 15:50頃発見</span>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            別館のエレベーター内で清掃員・田中芳子の遺体が発見される。死因は絞殺。エレベーター内には掃除機のコードが目いっぱい引っ張り出された状態の掃除機が一緒に残されていた。第1回緊急集会が開かれ、全員のアリバイが検証される。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-blood text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow z-10"><i class="fa-solid fa-skull"></i></div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-lg bg-red-950/10 border border-blood/30 hover:border-blood/60 transition duration-300">
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="font-bold text-lg text-red-200">第2の事件: 三女・黒崎凛殺害</h3>
+                            <span class="text-xs text-red-400 font-mono">DAY 1 - 18:25頃発見</span>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            本館1階スナック（クラブアルカディア）前の廊下で黒崎凛が殺害される。死因は絞殺（首に索状痕）。集会では、参加者たちが隠していたパパ活関係、不倫関係、週刊誌ライターとしての素性、そして支配人が遺産を狙う「神谷家の一族」であるという凄まじい裏事情が暴露される。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CAST -->
+    <section id="cast" class="py-20 bg-darker">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold section-title tracking-widest">CAST & ROLES</h2>
+            <p class="text-gray-400 mb-12 text-sm tracking-widest">登場人物一覧・初期装備データ</p>
+
+            <h3 class="text-lg font-bold text-left border-l-4 border-gray-500 pl-3 mb-6 text-gray-300"><i class="fa-solid fa-users mr-2"></i>参加者 (だいにぐるーぷ)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 text-left">
+                <div class="bg-dark border border-gray-800 p-5 rounded">
+                    <h4 class="font-bold text-white text-lg mb-2">岩田 ［本館 303］</h4>
+                    <span class="inline-block text-xs border border-ice/50 bg-ice/10 text-ice px-2 py-1 rounded mb-3">役職: 検視官</span>
+                    <p class="text-xs text-gray-400 mb-2"><strong>初期装備:</strong> 手帳、黒いペン、ライト、時計、館内マップ</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">能力①死体の第一発見者になると正確な死亡時刻と最後に話した人物が判明。②死亡者の部屋に入り正体（金庫の中身）を知れる。部屋から出るとすぐ渡り廊下。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-5 rounded">
+                    <h4 class="font-bold text-white text-lg mb-2">飯野 ［本館 215］</h4>
+                    <span class="inline-block text-xs border border-gray-600 bg-gray-800 text-gray-300 px-2 py-1 rounded mb-3">役職: 不明</span>
+                    <p class="text-xs text-gray-400 mb-2"><strong>初期装備:</strong> 手帳、青い三色ペン、ライト、？？</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">視点映像が少なく行動が見えにくい。第1事件発見時に6Fにいたのは偶然か？発見後エレベーターが下へ移動するのを放置。凛殺害前(2F)で遭遇している。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-5 rounded">
+                    <h4 class="font-bold text-white text-lg mb-2">西尾 ［本館 205］</h4>
+                    <span class="inline-block text-xs border border-yellow-600/50 bg-yellow-900/20 text-yellow-500 px-2 py-1 rounded mb-3">役職: 特殊役職？</span>
+                    <p class="text-xs text-gray-400 mb-2"><strong>初期装備:</strong> 手帳、青三色ペン、ライト、養生テープ？、巾着(水色レコーダー？)</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">金庫確認時、封筒が上。別館EV内で検証？館内に養生テープを貼る。独白から殺人鬼や協力者ではないと推測されている。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-5 rounded">
+                    <h4 class="font-bold text-white text-lg mb-2">土井谷 ［別館 401］</h4>
+                    <span class="inline-block text-xs border border-gray-600 bg-gray-800 text-gray-300 px-2 py-1 rounded mb-3">役職: 不明</span>
+                    <p class="text-xs text-gray-400 mb-2"><strong>初期装備:</strong> 手帳、水色と黒のペン、ライト、時計、？？</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">凛殺害前に２F階段から廊下奥へ移動した謎の行動。夜、支配人の林太郎が土井谷の部屋を訪れた疑惑がある。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-5 rounded">
+                    <h4 class="font-bold text-white text-lg mb-2">須藤 ［別館 502］</h4>
+                    <span class="inline-block text-xs border border-gray-600 bg-gray-800 text-gray-300 px-2 py-1 rounded mb-3">役職: 不明</span>
+                    <p class="text-xs text-gray-400 mb-2"><strong>初期装備:</strong> 手帳、ペン、ライト、？？</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">金庫に「探偵みたいなの入ってる」と発言。渡り廊下の様子を伺う。独白から殺人鬼や協力者ではないと推測されている。</p>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-left border-l-4 border-blood pl-3 mb-6 text-gray-300"><i class="fa-solid fa-bell-concierge mr-2"></i>ホテル関係者 (山幸閣・黒崎家)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12 text-left">
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">黒崎 恒一 ［別館 612］</h4>
+                    <p class="text-xs text-red-400 mb-2">オーナー</p>
+                    <p class="text-xs text-gray-500">足が悪い。このホテル以外に2つホテルを持っている資産家。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">黒崎 林太郎 ［別館 601］</h4>
+                    <p class="text-xs text-red-400 mb-2">支配人 (入り婿)</p>
+                    <p class="text-xs text-gray-500">由美子の夫。旧姓神谷。学歴・経歴を詐称して遺産を狙う戦略結婚。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">黒崎 由美子 ［別館 602］</h4>
+                    <p class="text-xs text-red-400 mb-2">長女 / スタッフ</p>
+                    <p class="text-xs text-gray-500">掃除機の場所を知らなかった。林太郎の身辺調査を探偵に依頼。</p>
+                </div>
+                <div class="bg-red-950/20 border border-blood/50 p-4 rounded relative">
+                    <div class="absolute -top-2 -right-2 bg-blood text-white text-[10px] font-bold px-2 py-1 rounded rotate-12">被害者</div>
+                    <h4 class="font-bold text-red-300 mb-1">黒崎 凛 ［別館 611］</h4>
+                    <p class="text-xs text-red-400 mb-2">三女 / スタッフ</p>
+                    <p class="text-xs text-gray-400">【第2の被害者】佐々木とパパ活。姉から計画を聞き遺産争いの渦中に。</p>
+                </div>
+                <div class="bg-red-950/20 border border-blood/50 p-4 rounded relative">
+                    <div class="absolute -top-2 -right-2 bg-blood text-white text-[10px] font-bold px-2 py-1 rounded rotate-12">被害者</div>
+                    <h4 class="font-bold text-red-300 mb-1">田中 芳子 ［別館 610］</h4>
+                    <p class="text-xs text-red-400 mb-2">清掃員</p>
+                    <p class="text-xs text-gray-400">【第1の被害者】宿泊客のゴミを漁り、ホテルの裏事情を最もよく知る。</p>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-left border-l-4 border-yellow-600 pl-3 mb-6 text-gray-300"><i class="fa-solid fa-suitcase mr-2"></i>宿泊客</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">佐々木 清 ［本館 201］</h4>
+                    <p class="text-xs text-yellow-500 mb-2">常連客</p>
+                    <p class="text-sm text-gray-500">オーナーと仲が良い。凛と頻繁に会っていた（パパ活発覚）。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">相沢 健二 ［本館 306］</h4>
+                    <p class="text-xs text-yellow-500 mb-2">週刊誌ライター</p>
+                    <p class="text-sm text-gray-500">小説家は偽り。ホテルに1ヶ月滞在。黒崎家の相続問題を追っている。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">高橋 宏 / 中村 美咲 ［本館 213］</h4>
+                    <p class="text-xs text-yellow-500 mb-2">不倫関係</p>
+                    <p class="text-sm text-gray-500">新婚夫婦と偽る。会社が厳しいためカメラに映るのを極端に嫌がる。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">悠斗 ［別館 402］</h4>
+                    <p class="text-xs text-yellow-500 mb-2">スノーボーダー / 神谷家親戚</p>
+                    <p class="text-sm text-gray-500">左利き。神谷家の親戚であることを隠して滞在。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">リオ ［別館 405］</h4>
+                    <p class="text-xs text-yellow-500 mb-2">インフルエンサー / 神谷家親戚</p>
+                    <p class="text-sm text-gray-500">神谷家の親戚であることを隠して滞在。常に動画を回している。</p>
+                </div>
+                <div class="bg-dark border border-gray-800 p-4 rounded">
+                    <h4 class="font-bold text-white mb-1">白井 玲司 ［別館 501］</h4>
+                    <p class="text-xs text-yellow-500 mb-2">謎の男</p>
+                    <p class="text-sm text-gray-500">自称東京出身。常に無言。由美子が雇った「探偵」説が有力。</p>
+                </div>
+            </div>
+            <p class="text-xs text-gray-600 text-right mt-4">【引用元：ヨン_kikyosan 様 / んごミック 様】</p>
+        </div>
+    </section>
+
+    <!-- INCIDENTS -->
+    <section id="incidents" class="py-20 px-4 max-w-6xl mx-auto">
+        <SectionTitle title="INCIDENTS & ALIBI" subtitle="事件の詳細と全アリバイ証言" />
+        
+        <div class="space-y-12 text-left">
+            <!-- 第1の事件 -->
+            <div class="bg-dark border border-blood/40 rounded-lg overflow-hidden shadow-2xl">
+                <div class="bg-gradient-to-r from-red-950/40 to-transparent p-5 border-b border-red-900/40">
+                    <h3 class="text-xl font-bold text-red-200"><i class="fa-solid fa-skull text-red-600 mr-3"></i>第1の犠牲者：田中芳子</h3>
+                    <p class="text-sm text-gray-300 mt-2">別館のエレベーター内。死因：絞殺。第一発見者：飯野（15:50位）。殺害時刻：15:44過ぎ～15:50前？エレベーター内で掃除機（コードが目いっぱい出た状態）と一緒に発見。</p>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6 bg-gray-900/50 p-4 rounded border border-gray-800">
+                        <h4 class="font-bold text-sm text-ice mb-3"><i class="fa-solid fa-video mr-2"></i>リオのカメラ映像</h4>
+                        <ul class="space-y-1 text-sm text-gray-400 font-mono">
+                            <li>15:43 渡り廊下で支配人、相沢とすれ違う。</li>
+                            <li>15:44 別館EV前で田中と遭遇。田中がEVボタンを押す。</li>
+                            <li>15:46 別館4F階段側で岩田、西尾と話す。</li>
+                            <li>15:47 別館5Fで凛とすれ違う。</li>
+                            <li>15:48 窓際で飯野と会話。飯野は6Fへ。</li>
+                            <li>15:50 叫び声。6Fへ。飯野がEV前で死体発見。</li>
+                        </ul>
+                    </div>
+                    
+                    <h4 class="font-bold text-sm text-white mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>アリバイ状況一覧</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">リオ</span><p class="text-xs text-gray-400">カメラ動画の通り。犯行はほぼ不可能。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">佐々木</span><p class="text-xs text-gray-400">15:40喫煙所。ロビーを通り自室201で仮眠。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">高橋夫妻</span><p class="text-xs text-gray-400">ロビーでパンフレット。15:55に顔はめパネルで土井谷が撮影。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">相沢</span><p class="text-xs text-gray-400">ロビーから3Fへ。食堂前で支配人と合流し1Fロビーへ。完璧なアリバイ。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">林太郎</span><p class="text-xs text-gray-400">シーツ交換で田中と3Fで会話。相沢と合流しロビーへ(15:43カメラ)。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">白井</span><p class="text-xs text-gray-400">ロビーに一瞬。階段に無言で立つ。喫煙所前の椅子に座る。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">恒一(オーナー)</span><p class="text-xs text-gray-400">自室で休憩。由美子の叫び声で出る。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">悠斗</span><p class="text-xs text-gray-400">死体発見時、別館5F廊下で目撃される。証言と行動の不一致。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">飯野</span><p class="text-xs text-gray-400">別館探索。15:48 リオと会話後6Fへ。EVを呼んで死体発見（15:50）。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">岩田</span><p class="text-xs text-gray-400">15:30 6Fへ。5Fで凛と会話。4Fでリオ、西尾と会話。3Fで飯野とすれ違う。死体発見時は2F？</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">西尾・須藤</span><p class="text-xs text-gray-400">死体発見時、須藤と一緒に喫煙所に。</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第2の事件 -->
+            <div class="bg-dark border border-blood/40 rounded-lg overflow-hidden shadow-2xl">
+                <div class="bg-gradient-to-r from-red-950/40 to-transparent p-5 border-b border-red-900/40">
+                    <h3 class="text-xl font-bold text-red-200"><i class="fa-solid fa-skull text-red-600 mr-3"></i>第2の犠牲者：黒崎凛</h3>
+                    <p class="text-sm text-gray-300 mt-2">本館1Fスナック前の廊下。死因：絞殺（索状痕）。第一発見者：佐々木（18:25位）。殺害時刻：18:20頃？</p>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6 bg-gray-900/50 p-4 rounded border border-gray-800">
+                        <h4 class="font-bold text-sm text-ice mb-3"><i class="fa-solid fa-clock mr-2"></i>直前の動向・時系列</h4>
+                        <ul class="space-y-1 text-sm text-gray-400 font-mono">
+                            <li>・17:30 佐々木清が夕食を早く切り上げて退席。その後別館6階へ行きすぐ戻る。</li>
+                            <li>・18:10位、凛が生きているのを目撃（白井、リオ、林太郎、須藤、西尾）。</li>
+                            <li>・18:10位、大浴場前。女性用大浴場の電気がついていなかった。（リオ、高橋、西尾）</li>
+                            <li>・18:15位 飯野が喫煙所の猫を見ている姿を目撃される。</li>
+                            <li>・18:20位～ 男湯にて高橋宏、飯野、西尾が一緒に入浴。</li>
+                            <li>・18:25位 佐々木がトイレに行こうとしたらスナック前で死体を発見。</li>
+                        </ul>
+                    </div>
+
+                    <h4 class="font-bold text-sm text-white mb-4"><i class="fa-solid fa-clipboard-check mr-2"></i>アリバイ状況一覧</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">佐々木</span><p class="text-xs text-gray-400">17:30に6Fへ。凛とEVで抱き合う？トイレへ向かい死体発見(18:25)。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">恒一(オーナー)</span><p class="text-xs text-gray-400">夕食後、部屋でぼーっと。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">白井</span><p class="text-xs text-gray-400">18:10凛生存目撃。喫煙所で猫を見る。岩田の気配を感じ逃げる。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">相沢</span><p class="text-xs text-gray-400">自室306で土井谷と雑談。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">大浴場組</span><p class="text-xs text-gray-400">リオ、宏、美咲、西尾。18:20〜大浴場内でアリバイ。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">林太郎</span><p class="text-xs text-gray-400">18:10凛生存目撃。死体発見時は食堂に途中から加わる。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">須藤・悠斗</span><p class="text-xs text-gray-400">30分前から食堂に同席。</p></div>
+                        <div class="p-3 bg-gray-900/30 rounded border border-gray-800"><span class="font-bold text-sm block mb-1 text-gray-300">土井谷</span><p class="text-xs text-gray-400">林太郎が部屋を訪れた？その後相沢と306で雑談。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">飯野</span><p class="text-xs text-gray-400">18時後、2Fで凛と遭遇。18:20〜男湯。自室215で叫び声を聞く。</p></div>
+                        <div class="p-3 bg-red-950/10 rounded border border-red-900/30"><span class="font-bold text-sm block mb-1 text-red-400">岩田</span><p class="text-xs text-gray-400">18時から食堂。6F〜4Fを見回り。3Fで佐々木の叫び声を聞き合流。</p></div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-gray-600 text-right mt-4">【引用元：ヨン_kikyosan 様】</p>
+        </div>
+    </section>
+
+    <!-- CLUES -->
+    <section id="clues" class="py-20 bg-darker border-t border-gray-900 px-4">
+        <div class="max-w-5xl mx-auto">
+            <SectionTitle title="CLUES & THEORY" subtitle="未回収の伏線・考察まとめ" />
+            
+            <div class="space-y-4">
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>犯人が使ったアリバイトリック</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        田中芳子は発見時に本当に死んでいたのか？「首を絞められて死亡した」と発表したのは支配人。気絶していただけで、全員が大広間へ移動した後に殺害することも理論上は可能。このトリックを実行できるのは支配人・黒崎林太郎。
+                    </div>
+                </details>
+
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>支配人が401号室に入った理由</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        夜のシーンでは支配人がどこかの部屋へ入っていく描写がありました。ホテルの見取り図を検証すると、その部屋は土井谷の401号室とのこと。なぜ入ったのかは不明ですが、今後の重要な伏線である可能性があります。
+                    </div>
+                </details>
+
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>黒崎凛は何を見てしまったのか</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        殺害前、黒崎凛は庭園を見ていました。相沢は廊下で「回収されてたか」と呟いています。日中の庭園付近には白井がいました。「白井は何かを監視していた」「黒崎凛がそれを目撃した」「その結果、口封じされた」という流れが見えてきます。
+                    </div>
+                </details>
+
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>白井の正体は探偵？</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        白井＝探偵説。由美子は夫である林太郎を疑い、探偵に調査を依頼していました。その探偵こそ白井ではないかと考えられます。もしそうなら白井の怪しい監視行動にも説明がつきます。
+                    </div>
+                </details>
+
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>大浴場の消灯は伏線なのか</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        気になる描写として、女性側大浴場の電気が消えていたシーンがあります。黒崎凛が通過した後に電気が消えています。暗闇に紛れて犯行の準備をしていた可能性が考えられます。
+                    </div>
+                </details>
+
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>相沢が情報を操作している可能性</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        現状では提供された情報はすべて正しいように見えますが、岩田が得ている情報の多くは相沢（ライター）からです。情報源が一人に集中している以上、岩田も視聴者も誘導されている可能性があります。不倫の情報を広めていたのも相沢です。
+                    </div>
+                </details>
+
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>飯野さんの不可解な行動</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        飯野さんは視点映像がかなり少なく、行動が見えにくい人物です。特に気になったのは夜9時頃の2階での行動。エレベーター横付近で何かをしているシーンが映っていました。
+                    </div>
+                </details>
+                
+                <details class="bg-dark border border-gray-800 rounded group cursor-pointer">
+                    <summary class="font-bold p-4 flex justify-between items-center group-open:text-ice transition-colors">
+                        <span><i class="fa-solid fa-magnifying-glass mr-3 text-gray-600"></i>肝試しシーンの意味</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="p-4 pt-0 text-sm text-gray-400 border-t border-gray-800 mt-2 leading-relaxed">
+                        高橋がホテル内で肝試しをしている場面で、黒崎由美子と遭遇します。わざわざ映像で見せている以上、この出会いにも意味があるはずです。伏線として回収される可能性は高そうです。
+                    </div>
+                </details>
+            </div>
+            <p class="text-xs text-gray-600 text-right mt-4">【引用元：んごミック 様】</p>
+        </div>
+    </section>
+
+    <!-- ガチ投票 セクション (Firebase) -->
+    <section id="vote" class="py-20 bg-darker border-t border-gray-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-black tracking-[0.2em] text-white mb-2 relative inline-block">
+                    VOTING
+                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#8b0000]"></div>
+                </h2>
+                <p class="text-gray-500 tracking-widest mt-5 text-sm">真犯人（殺人鬼）予測 リアルタイムガチ投票</p>
+                <p class="text-[11px] text-gray-600 mt-2">※殺人鬼は複数人いる可能性があります。<br>怪しいと思う人物を選択（複数可）し、「投票を確定する」ボタンを押してください。<br>（全ユーザーの投票データがリアルタイムに集計・反映されます）</p>
+            </div>
+            
+            <div class="bg-dark border border-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
+                <p class="text-center text-sm text-gray-400 mb-8">
+                    全ユーザーの総投票数: <span id="vote-total" class="text-white font-bold text-lg">0</span> 票
+                </p>
+                
+                <div id="candidate-list" class="space-y-4">
+                    <div class="text-center text-gray-500 text-sm py-10"><i class="fa-solid fa-spinner fa-spin mr-2"></i> 投票データを読み込み中...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section class="py-16 bg-dark border-t border-gray-900 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-xs font-bold text-gray-500 mb-6 tracking-widest border-l-4 border-gray-700 pl-3">REFERENCES / 引用・参考元</h3>
+            <div class="space-y-4 text-xs">
+                <div class="bg-gray-900/50 p-4 rounded border border-gray-800">
+                    <p class="text-gray-300 font-bold mb-1">【リアル人狼】犯人が使ったアリバイトリック。第1話ネタバレ感想＆伏線・ドラマ考察。雪山ホテルをカメラ60台で3日間記録した連続殺人ゲーム。出演者：だいにぐるーぷ、他。</p>
+                    <p class="text-gray-500 mb-2">著者：んごミック 様 ｜ X：<a href="https://x.com/utaitengo0312" target="_blank" class="text-blue-400 hover:underline">@utaitengo0312</a> ｜ <a href="https://www.youtube.com/channel/UCA7BRIZEpejad6nMHjBhsCA" target="_blank" class="text-blue-400 hover:underline">YouTube</a></p>
+                    <a href="https://note.com/utaitengo0312/n/n024031531e95" target="_blank" class="text-gray-400 hover:text-white transition break-all"><i class="fa-solid fa-link mr-1"></i>https://note.com/utaitengo0312/n/n024031531e95</a>
+                </div>
+                <div class="bg-gray-900/50 p-4 rounded border border-gray-800">
+                    <p class="text-gray-300 font-bold mb-1">【だいにぐるーぷ リアル人狼】エピソード2サツ人鬼の伏線・意味深シーンまとめ。第2話ネタバレ感想＆伏線・ドラマ考察。雪山ホテルをカメラ60台で3日間記録した連続殺人ゲーム。</p>
+                    <p class="text-gray-500 mb-2">著者：んごミック 様 ｜ X：<a href="https://x.com/utaitengo0312" target="_blank" class="text-blue-400 hover:underline">@utaitengo0312</a></p>
+                    <a href="https://note.com/utaitengo0312/n/n563f2e758c96" target="_blank" class="text-gray-400 hover:text-white transition break-all"><i class="fa-solid fa-link mr-1"></i>https://note.com/utaitengo0312/n/n563f2e758c96</a>
+                </div>
+                <div class="bg-gray-900/50 p-4 rounded border border-gray-800">
+                    <p class="text-gray-300 font-bold mb-1">だいにぐるーぷ「殺人ゲーム」、Ep2で早くも個人の秘密が色々判明したのは意外。終盤はメンバー同士の争いが焦点になるのかも。とりあえずEp1,Ep2個人的まとめメモを公開。</p>
+                    <p class="text-gray-500 mb-2">著者：ヨン_kikyosan 様 ｜ X：<a href="https://x.com/yon_kikyosan" target="_blank" class="text-blue-400 hover:underline">@yon_kikyosan</a></p>
+                    <a href="https://fusetter.com/tw/RJXQX6ld" target="_blank" class="text-gray-400 hover:text-white transition break-all"><i class="fa-solid fa-link mr-1"></i>https://fusetter.com/tw/RJXQX6ld</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-8 border-t border-gray-900 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-gray-600 text-sm tracking-widest mb-2">※本サイトは非公式のファンメイド考察サイトです。</p>
+            <p class="text-gray-700 text-xs">© 2026 山幸閣 連続殺人ゲーム 考察班</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK & 投票ロジック -->
+    <script src="config.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        import { getFirestore, doc, collection, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+
+        // Firebase設定 (外部ファイル config.js から読み込み)
+        const firebaseConfig = window.FIREBASE_CONFIG || {
+            apiKey: "",
+            authDomain: "",
+            projectId: "",
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: "",
+            measurementId: ""
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const appId = 'web-voting'
+        
+        let db, auth;
+        let user = null;
+        let isLocalMode = false;
+
+        try {
+            const finalConfig = (typeof configStr !== 'undefined' && configStr) ? JSON.parse(configStr) : firebaseConfig;
+            const app = initializeApp(finalConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+        } catch (error) {
+            console.error("Firebase初期化エラー:", error);
+            isLocalMode = true;
+        }
+
+        // 登場人物全員（17名）の定義
+        const candidates = [
+            { id: 'rintaro', name: '黒崎 林太郎 (支配人)' },
+            { id: 'koichi', name: '黒崎 恒一 (オーナー)' },
+            { id: 'yumiko', name: '黒崎 由美子 (長女)' },
+            { id: 'rin', name: '黒崎 凛 (三女)' },
+            { id: 'tanaka', name: '田中 芳子 (清掃員)' },
+            { id: 'iwata', name: '岩田 (だいにぐるーぷ)' },
+            { id: 'iino', name: '飯野 (だいにぐるーぷ)' },
+            { id: 'nishio', name: '西尾 (だいにぐるーぷ)' },
+            { id: 'doitaya', name: '土井谷 (だいにぐるーぷ)' },
+            { id: 'sudo', name: '須藤 (だいにぐるーぷ)' },
+            { id: 'sasaki', name: '佐々木 清 (常連客)' },
+            { id: 'aizawa', name: '相沢 健二 (ライター)' },
+            { id: 'takahashi', name: '高橋 宏 (不倫相手)' },
+            { id: 'nakamura', name: '中村 美咲 (不倫相手)' },
+            { id: 'yuto', name: '悠斗 (スノーボーダー)' },
+            { id: 'rio', name: 'リオ (インフルエンサー)' },
+            { id: 'shirai', name: '白井 玲司 (謎の男)' }
+        ];
+
+        // サーバーからの得票数
+        let voteCounts = {};
+        candidates.forEach(c => voteCounts[c.id] = 0);
+
+        // クライアント側（ブラウザ）の選択・確定状態管理
+        let myVotedCandidates = JSON.parse(localStorage.getItem('satsujin_game_votes') || '[]');
+        let selectedCandidates = new Set();
+
+        // Firebase 認証プロセス
+        const initAuth = async () => {
+            if (isLocalMode) {
+                user = { uid: "local-user" };
+                window.renderVotes();
+                return;
+            }
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (e) {
+                console.error("Auth Error:", e);
+                isLocalMode = true;
+                window.renderVotes();
+            }
+        };
+
+        if (!isLocalMode) {
+            onAuthStateChanged(auth, (u) => {
+                user = u;
+                if (user) {
+                    const votesRef = collection(db, 'artifacts', appId, 'public', 'data', 'votes');
+                    onSnapshot(votesRef, (snapshot) => {
+                        snapshot.forEach(docSnap => {
+                            voteCounts[docSnap.id] = docSnap.data().count || 0;
+                        });
+                        window.renderVotes();
+                    }, (error) => {
+                        console.error("Firestore error:", error);
+                    });
+                }
+            });
+        }
+
+        initAuth();
+
+        // 候補者チェックボックストグル（確定前）
+        window.toggleSelection = function(candidateId) {
+            if (myVotedCandidates.length > 0) return; // 既に確定済みなら変更不可
+            
+            if (selectedCandidates.has(candidateId)) {
+                selectedCandidates.delete(candidateId);
+            } else {
+                selectedCandidates.add(candidateId);
+            }
+            window.renderVotes();
+        }
+
+        // 投票確定処理（複数選択を一括送信）
+        window.confirmVote = async function() {
+            if (selectedCandidates.size === 0) {
+                alert("1人以上選択してください。");
+                return;
+            }
+
+            const selectedArr = Array.from(selectedCandidates);
+
+            // 1. UIの即時反映（楽観的アップデート）
+            selectedArr.forEach(id => {
+                if(voteCounts[id] !== undefined) voteCounts[id]++;
+            });
+            myVotedCandidates = selectedArr;
+            localStorage.setItem('satsujin_game_votes', JSON.stringify(myVotedCandidates));
+            window.renderVotes();
+
+            // 投票後は自分の予想欄(上部)を見せるためスクロール
+            document.getElementById('vote').scrollIntoView({ behavior: 'smooth' });
+
+            if (isLocalMode || !user) return;
+
+            // 2. Firestore トランザクション処理でカウントを加算
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const reads = [];
+                    for (const id of selectedArr) {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'votes', id);
+                        reads.push({ ref: docRef, snap: await transaction.get(docRef) });
+                    }
+                    for (const { ref, snap } of reads) {
+                        if (!snap.exists()) {
+                            transaction.set(ref, { count: 1 });
+                        } else {
+                            transaction.update(ref, { count: (snap.data().count || 0) + 1 });
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error("Vote confirm failed: ", e);
+            }
+        }
+
+        // 投票やり直し処理（過去の自分の票をサーバーからマイナスする）
+        window.resetVote = async function() {
+            if (!confirm("現在の投票を取り消してやり直しますか？")) return;
+
+            const previousVotes = [...myVotedCandidates];
+
+            // 1. UIの即時反映（ローカルから票を減らす）
+            previousVotes.forEach(id => {
+                if (voteCounts[id] > 0) voteCounts[id]--;
+            });
+            myVotedCandidates = [];
+            selectedCandidates.clear();
+            localStorage.removeItem('satsujin_game_votes');
+            window.renderVotes();
+
+            if (isLocalMode || !user) return;
+
+            // 2. Firestore トランザクション処理でカウントを減算
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const reads = [];
+                    for (const id of previousVotes) {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'votes', id);
+                        reads.push({ ref: docRef, snap: await transaction.get(docRef) });
+                    }
+                    for (const { ref, snap } of reads) {
+                        if (snap.exists()) {
+                            // マイナスにならないよう制御
+                            const newCount = Math.max(0, (snap.data().count || 0) - 1);
+                            transaction.update(ref, { count: newCount });
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error("Vote reset failed: ", e);
+            }
+        }
+
+        // 画面レンダリング関数
+        window.renderVotes = function() {
+            const container = document.getElementById('candidate-list');
+            if(!container) return;
+            
+            let total = 0;
+            for (const key in voteCounts) total += voteCounts[key];
+            
+            // 得票数順にソート
+            const sorted = candidates.map(c => ({...c, count: voteCounts[c.id]})).sort((a,b) => b.count - a.count);
+            document.getElementById('vote-total').innerText = total.toLocaleString();
+            
+            const hasVoted = myVotedCandidates.length > 0;
+            let html = '';
+
+            // =====================================
+            // 投票確定後の「自分の予想」とアクションエリア（上部）
+            // =====================================
+            if (hasVoted) {
+                const votedNames = myVotedCandidates.map(id => candidates.find(c => c.id === id)?.name).join('、');
+                const encodedText = encodeURIComponent(`私は【${votedNames}】が殺人鬼だと推理して投票しました！\n\nhttps://zyuuuukak1n.dev/dai2group/satsujin-game/#vote\n\n#殺人ゲーム #だいにぐるーぷ`);
+                
+                html += `
+                <div class="bg-gray-900/80 border border-blue-500/50 p-6 rounded-lg mb-10 text-center shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+                    <h3 class="text-sm font-bold text-gray-400 mb-2">現在の自分の予想</h3>
+                    <p class="text-lg md:text-xl font-bold text-blue-300 mb-6 leading-relaxed">${votedNames}</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="https://twitter.com/intent/tweet?text=${encodedText}" target="_blank" rel="noopener noreferrer" class="bg-black hover:bg-gray-800 border border-gray-600 text-white text-sm font-bold px-6 py-3 rounded-full transition flex items-center justify-center">
+                            <i class="fa-brands fa-x-twitter text-lg mr-2"></i> Xで予想をポスト
+                        </a>
+                        <button onclick="resetVote()" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white text-sm font-bold px-6 py-3 rounded-full transition flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-right mr-2"></i> 投票をやり直す
+                        </button>
+                    </div>
+                </div>
+                `;
+            }
+
+            // =====================================
+            // 候補者一覧とプログレスバー
+            // =====================================
+            html += '<div class="space-y-4">';
+            sorted.forEach((c, index) => {
+                const pct = total === 0 ? 0 : ((c.count / total) * 100).toFixed(1);
+                const isTop = index === 0 && c.count > 0;
+                const isSelected = selectedCandidates.has(c.id);
+                const isMyVote = myVotedCandidates.includes(c.id);
+
+                // 状態に応じたスタイル分け
+                let borderClass = 'border-gray-800';
+                let cursorClass = 'cursor-pointer hover:border-gray-600';
+                let checkIcon = '<i class="fa-regular fa-square text-gray-600 text-xl"></i>';
+
+                if (hasVoted) {
+                    cursorClass = 'cursor-default opacity-60';
+                    if (isMyVote) {
+                        borderClass = 'border-blue-500/80 bg-blue-900/20 opacity-100 shadow-[0_0_10px_rgba(59,130,246,0.3)]';
+                        checkIcon = '<i class="fa-solid fa-square-check text-blue-400 text-xl"></i>';
+                    } else {
+                        checkIcon = '<i class="fa-regular fa-square text-gray-700 text-xl opacity-50"></i>';
+                    }
+                } else {
+                    if (isSelected) {
+                        borderClass = 'border-red-600/80 bg-red-900/20 shadow-[0_0_10px_rgba(220,38,38,0.3)]';
+                        checkIcon = '<i class="fa-solid fa-square-check text-red-500 text-xl"></i>';
+                    }
+                }
+                
+                html += `
+                <div onclick="${hasVoted ? '' : `toggleSelection('${c.id}')`}" class="relative p-3 rounded-lg border ${borderClass} ${cursorClass} transition-all duration-200 group">
+                    <div class="flex justify-between items-center mb-2 relative z-10">
+                        <div class="flex items-center gap-3">
+                            <span class="transform group-hover:scale-110 transition-transform">${checkIcon}</span>
+                            <span class="font-bold ${isTop ? 'text-red-500' : 'text-gray-200'} text-sm md:text-base">${index + 1}. ${c.name}</span>
+                        </div>
+                        <span class="text-gray-400 font-mono text-xs md:text-sm bg-black/50 px-2 py-1 rounded border border-gray-800">${pct}% (${c.count.toLocaleString()}票)</span>
+                    </div>
+                    <div class="w-full bg-gray-900 h-2 md:h-3 rounded overflow-hidden relative z-0">
+                        <div class="${isTop ? 'bg-red-700' : 'bg-gray-600'} h-full transition-all duration-1000 ease-out" style="width: ${pct}%"></div>
+                    </div>
+                </div>
+                `;
+            });
+            html += '</div>';
+
+            // =====================================
+            // フッターアクションエリア（確定ボタン等）
+            // =====================================
+            html += '<div class="mt-10 text-center border-t border-gray-800 pt-8">';
+            if (!hasVoted) {
+                html += `
+                <button onclick="confirmVote()" class="bg-blood hover:bg-red-700 text-white font-bold text-lg px-12 py-4 rounded-full shadow-[0_0_20px_rgba(139,0,0,0.4)] transition-all transform hover:scale-105 flex items-center justify-center mx-auto">
+                    <i class="fa-solid fa-check mr-2"></i> 投票を確定する
+                </button>
+                <p class="text-xs text-gray-500 mt-4">※気になる人物をタップして選択してください（複数選択可）</p>
+                `;
+            } else {
+                const votedNames = myVotedCandidates.map(id => candidates.find(c => c.id === id)?.name).join('、');
+                const encodedText = encodeURIComponent(`私は【${votedNames}】が殺人鬼だと推理して投票しました！\n\nhttps://zyuuuukak1n.dev/dai2group/satsujin-game/#vote\n\n#殺人ゲーム #だいにぐるーぷ`);
+                
+                html += `
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://twitter.com/intent/tweet?text=${encodedText}" target="_blank" rel="noopener noreferrer" class="bg-black hover:bg-gray-800 border border-gray-600 text-white font-bold px-8 py-4 rounded-full transition flex items-center justify-center">
+                        <i class="fa-brands fa-x-twitter text-lg mr-2"></i> Xで予想をポスト
+                    </a>
+                    <button onclick="resetVote()" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold px-8 py-4 rounded-full transition flex items-center justify-center">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> 投票をやり直す
+                    </button>
+                </div>
+                `;
+            }
+            html += '</div>';
+
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
